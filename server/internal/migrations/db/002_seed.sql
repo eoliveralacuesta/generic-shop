@@ -5,16 +5,16 @@ INSERT INTO category(slug,name) VALUES
 
 -- CATEGORÍAS
 INSERT INTO category (slug, name, parent_id)
-SELECT 'velas-aromaticas', 'Velas aromáticas', (c.id FROM category c WHERE c.slug = 'velas');
+SELECT 'velas-aromaticas', 'Velas aromáticas', (SELECT c.id FROM category c WHERE c.slug = 'velas')
 UNION ALL
-SELECT 'velas-medianas', 'Velas medianas', (c.id FROM category c WHERE c.slug = 'velas');
+SELECT 'velas-medianas', 'Velas medianas', (SELECT c.id FROM category c WHERE c.slug = 'velas')
 UNION ALL
-SELECT 'velas-grandes', 'Velas grandes', (c.id FROM category c WHERE c.slug = 'velas');
+SELECT 'velas-grandes', 'Velas grandes', (SELECT c.id FROM category c WHERE c.slug = 'velas');
 
 INSERT INTO category (slug, name, parent_id)
-SELECT 'flexbox-mdf', 'Complementos flexbox', (c.id FROM category c WHERE c.slug = 'complementos');
+SELECT 'flexbox-mdf', 'Complementos flexbox', (SELECT c.id FROM category c WHERE c.slug = 'complementos')
 UNION ALL
-SELECT 'cajas-mdf', 'Cajas en MDF', (c.id FROM category c WHERE c.slug = 'complementos');
+SELECT 'cajas-mdf', 'Cajas en MDF', (SELECT c.id FROM category c WHERE c.slug = 'complementos');
 
 -- TAGS
 INSERT INTO tag (slug, name) VALUES

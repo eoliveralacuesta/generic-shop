@@ -1,0 +1,1 @@
+UPDATE product SET stock = 0 WHERE sku = 'CV01';

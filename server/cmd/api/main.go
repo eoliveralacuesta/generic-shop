@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"lumbra/internal/products"
+	"github.com/eoliveralacuesta/generic-shop/server/internal/products"
 
 	_ "modernc.org/sqlite"
 )

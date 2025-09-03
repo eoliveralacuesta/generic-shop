@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"generic-shop/internal/migrations"
+	"github.com/eoliveralacuesta/generic-shop/server/internal/migrations"
 
 	_ "modernc.org/sqlite"
 )
