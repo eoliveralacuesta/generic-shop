@@ -1,0 +1,719 @@
+.lumbra-skin #contact .contact__info h2,.lumbra-skin #showroom .showroom__back,.lumbra-skin #showroom h2,.lumbra-skin .btn {
+    font-weight: 700;
+    font-variant-caps: small-caps
+}
+
+:root {
+    --text-color: #212121;
+    --darkbrown-color: #3E2F23;
+    --brown-color: #513d30;
+    --lightbrown-color: #8d7463;
+    --beige-color: #c8b79e;
+    --highlight-color: #A25D32;
+    --font-family: 'Playfair Display',monospace,sans-serif
+}
+
+body.lumbra-skin {
+    font-size: 13px;
+    font-family: var(--font-family);
+    background: url('./assets/images/kraft_bg.webp');
+    margin: 0;
+    padding: 0
+}
+
+body.lumbra-skin::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255 255 255 / 30%);
+    pointer-events: none;
+    z-index: -1
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(clamp(100px,25vh,175px) + 40px)
+}
+
+.lumbra-skin header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px 20px 10px
+}
+
+.lumbra-skin header.scrolled {
+    scroll-padding-top: 50px
+}
+
+.lumbra-skin header .header__logo img {
+    height: clamp(100px,25vh,175px);
+    width: auto;
+    padding: 5px 10px
+}
+
+.lumbra-skin header.scrolled .header__logo img {
+    display: none
+}
+
+.lumbra-skin header #header__navigation {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: .3s ease-in-out
+}
+
+.lumbra-skin header.scrolled #header__navigation {
+    flex-direction: row;
+    gap: 20px;
+    background: rgb(62 47 35 / 50%);
+    backdrop-filter: blur(3px);
+    padding: 5px 20px
+}
+
+.lumbra-skin header #header__navigation #navigation__logo img {
+    display: none
+}
+
+.lumbra-skin header.scrolled #header__navigation #navigation__logo img {
+    display: block;
+    height: 35px;
+    width: auto;
+    padding-right: 15px
+}
+
+.lumbra-skin header.scrolled #header__navigation a {
+    color: var(--text-color)
+}
+
+.lumbra-skin header #header__navigation a {
+    font-weight: 700;
+    font-size: clamp(16px, 25vh, 25px);
+    color: var(--darkbrown-color);
+    font-style: normal;
+    position: relative;
+    text-decoration: none;
+    font-variant: small-caps
+}
+
+.lumbra-skin header #header__navigation a:not([id=navigation__logo])::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: var(--highlight-color);
+    transition: width .3s ease-in-out
+}
+
+.lumbra-skin header #header__navigation a:active,.lumbra-skin header #header__navigation a:focus,.lumbra-skin header #header__navigation a:hover {
+    color: var(--highlight-color)
+}
+
+.lumbra-skin header #header__navigation a:active::after,.lumbra-skin header #header__navigation a:focus::after,.lumbra-skin header #header__navigation a:hover::after {
+    width: 100%
+}
+
+.lumbra-skin header #menu-toggle {
+    opacity: 0;
+    display: none;
+    min-width: 0;
+    background-color: var(--beige-color);
+    color: var(--darkbrown-color);
+    border: 2px solid var(--darkbrown-color);
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    transition: opacity .3s ease-in-out
+}
+
+@media (max-width: 767px) {
+    .lumbra-skin.menu-open {
+        overflow:hidden
+    }
+
+    html {
+        scroll-padding-top: 75px
+    }
+
+    .lumbra-skin header.scrolled #menu-toggle {
+        display: block;
+        opacity: 1
+    }
+
+    .lumbra-skin header.scrolled #header__navigation {
+        display: none
+    }
+
+    .lumbra-skin.menu-open header #header__navigation {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        flex-direction: column;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 10vh 0 0;
+        background: var(--beige-color);
+        border: 2px solid var(--darkbrown-color);
+        z-index: 2000
+    }
+
+    .lumbra-skin.menu-open header #header__navigation #navigation__logo img {
+        width: 30vw;
+        height: auto;
+        padding: 0
+    }
+
+    .lumbra-skin.menu-open header #header__navigation a {
+        font-size: clamp(1em, 5vw + .5em, 3em)
+    }
+}
+
+.lumbra-skin .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 85px;
+    padding: 30px clamp(15px,10vw,30px);
+    column-gap: 30px
+}
+
+.lumbra-skin .about__grid .about__block {
+    display: contents
+}
+
+.lumbra-skin .about__grid .about__block .about__text {
+    grid-column: span 2;
+    grid-row: span 6;
+    font-size: clamp(13px, 4vw + .5em, 3em);
+    font-weight: 400;
+    font-variant: small-caps;
+    align-self: center;
+    margin: 0
+}
+
+.lumbra-skin .about__grid .about__block:first-child .about__text {
+    grid-row: 2/span 3
+}
+
+.lumbra-skin .about__grid .about__block .about__image {
+    max-height: 100%;
+    width: auto
+}
+
+.lumbra-skin .about__grid .about__block .about__image--square {
+    grid-row: span 5;
+    justify-self: end
+}
+
+.lumbra-skin .about__grid .about__block .about__image--vertical {
+    grid-row: span 7;
+    justify-self: start;
+    margin-top: calc(-2 * 60px)
+}
+
+.lumbra-skin .about__grid .about__block:nth-of-type(odd) .about__text {
+    grid-column: 1/span 2
+}
+
+.lumbra-skin .about__grid .about__block:nth-of-type(odd) .about__image {
+    grid-column: 3/span 1
+}
+
+.lumbra-skin .about__grid .about__block:nth-of-type(2n) .about__image {
+    grid-column: 1/span 1
+}
+
+.lumbra-skin .about__grid .about__block:nth-of-type(2n) .about__text {
+    grid-column: 2/span 2
+}
+
+@media (max-width: 978px) {
+    .lumbra-skin .about__grid {
+        grid-template-columns:1fr;
+        grid-auto-rows: auto
+    }
+
+    .lumbra-skin .about__grid .about__block {
+        display: contents
+    }
+
+    .lumbra-skin .about__grid .about__block .about__image,.lumbra-skin .about__grid .about__block .about__text {
+        margin-top: 0;
+        grid-column: auto!important;
+        grid-row: auto!important;
+        max-width: 100%;
+        height: auto
+    }
+}
+
+.lumbra-skin #catalog,
+.lumbra-skin #contact {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(500px,75vh,850px);
+    padding: 30px;
+    text-align: center;
+    color: #fff
+}
+
+.lumbra-skin #catalog .catalog__image,
+.lumbra-skin #contact .contact__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    filter: brightness(.5);
+    z-index: 0;
+    opacity: .7
+}
+
+.lumbra-skin #catalog .catalog__info,
+.lumbra-skin #contact .contact__info {
+    position: relative;
+    z-index: 1
+}
+
+.lumbra-skin #catalog .catalog__info h2 {
+    font-size: 2em;
+}
+
+.lumbra-skin #catalog .catalog__info h3 {
+    font-size: 1.5em;
+    font-weight: 400;
+}
+
+.lumbra-skin #contact .contact__info {
+    color: #fff
+}
+
+.lumbra-skin #contact .contact__info h2 {
+    font-size: 4em;
+    margin-bottom: 7vh;
+    margin-top: 0
+}
+
+.lumbra-skin #contact .contact__info p {
+    font-size: 2em;
+    margin-bottom: 5vh
+}
+
+.lumbra-skin #catalog .catalog__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 60px;
+    font-size: 16px;
+    gap: 25px;
+}
+
+.lumbra-skin #catalog .catalog__buttons .btn.btn-brown {
+    padding: 15px 20px 15px 65px;
+    font-size: 20px;
+    width: 250px;
+    margin: auto;
+}
+
+.lumbra-skin #presentation {
+    position: relative;
+    min-height: calc(100vh - 300px);
+    height: max-content;
+    padding: 60px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column
+}
+
+.lumbra-skin #presentation h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(26px, 3dvw, 44px);
+    font-variant: small-caps;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    text-wrap: balance;
+    max-width: 50ch;
+    margin: 10px 0 60px;
+}
+
+/* Mobile: un poco más estrecho para cortar antes */
+@media (max-width: 768px) {
+    .lumbra-skin #presentation h1 { 
+        max-width: 25ch;
+    }
+}
+
+.lumbra-skin #presentation .presentation__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: brightness(.7);
+    z-index: 0;
+    opacity: .5
+}
+
+.lumbra-skin .presentation__options {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    position: relative
+}
+
+.lumbra-skin .presentation__item {
+    position: relative;
+    width: clamp(230px,20vw,400px);
+    height: clamp(230px,20vw,400px);
+    perspective: 1000px;
+    clip-path: polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%);
+    background: var(--brown-color);
+    align-items: center;
+    justify-content: center;
+    display: flex
+}
+
+.lumbra-skin #showroom .showroom__item,.lumbra-skin .presentation__front {
+    background: url('./assets/icons/kraft_bg.jpg') 0 0/cover
+}
+
+.lumbra-skin .presentation__inner {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: auto;
+    transform-style: preserve-3d;
+    transition: transform .3s ease-in-out
+}
+
+.lumbra-skin .presentation__back,.lumbra-skin .presentation__item:hover .presentation__inner {
+    transform: rotateY(180deg)
+}
+
+.lumbra-skin .presentation__back,.lumbra-skin .presentation__front {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    overflow: hidden;
+    clip-path: polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%)
+}
+
+.lumbra-skin .presentation__front img {
+    width: 70%;
+    height: 70%;
+    margin: auto
+}
+
+.lumbra-skin .presentation__back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+@media (max-width: 768px) {
+    .lumbra-skin #presentation .presentation__options {
+        flex-direction:column;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .lumbra-skin #presentation .presentation__item {
+        width: clamp(200px,65vw,500px);
+        height: clamp(200px,65vw,500px)
+    }
+}
+
+@media (min-width: 768px) and (max-width:1024px) {
+    .lumbra-skin #presentation .presentation__options {
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr
+    }
+
+    .lumbra-skin #presentation .presentation__item {
+        width: clamp(280px,50vw,350px);
+        height: clamp(280px,50vw,350px);
+        margin: auto
+    }
+}
+
+.lumbra-skin #showroom {
+    padding: 10vh 30px 15vh
+}
+
+.lumbra-skin #showroom h2 {
+    text-align: center;
+    font-size: 4em;
+    color: var(--darkbrown-color);
+    margin-bottom: 7vh;
+    margin-top: 0
+}
+
+.lumbra-skin #showroom .showroom__options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly
+}
+
+.lumbra-skin #showroom .showroom__item {
+    position: relative;
+    width: clamp(200px,25vw,300px);
+    height: clamp(200px,25vw,300px);
+    border-radius: 50%;
+    perspective: 1000px;
+    cursor: pointer;
+    border: 4px solid var(--brown-color)
+}
+
+.lumbra-skin #showroom .showroom__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .6s;
+    border-radius: 50%
+}
+
+.lumbra-skin #showroom .showroom__item:hover .showroom__inner {
+    transform: rotateY(180deg)
+}
+
+.lumbra-skin #showroom .showroom__back,.lumbra-skin #showroom .showroom__front {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.lumbra-skin #showroom .showroom__front img {
+    width: 75%;
+    height: 75%
+}
+
+.lumbra-skin #showroom .showroom__back {
+    transform: rotateY(180deg);
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    text-align: center;
+    color: var(--brown-color);
+    font-size: clamp(35px, 3dvw, 40px);
+}
+
+.lumbra-skin footer {
+    background: var(--darkbrown-color);
+    color: #fff;
+    padding: 30px 20px 30px 5px
+}
+
+.lumbra-skin footer .footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    max-height: 170px;
+    height: clamp(150px,25vh,250px);
+    overflow: hidden;
+    opacity: .8;
+    position: relative
+}
+
+.lumbra-skin footer .footer__content img.footer__logo {
+    height: 100%;
+    width: auto;
+    max-height: 100%;
+    object-fit: contain
+}
+
+.lumbra-skin footer .footer__content .footer__contact {
+    display: flex;
+    text-align: right;
+    flex-direction: column;
+    justify-content: right;
+    align-items: flex-end
+}
+
+.lumbra-skin footer .footer__content .footer__socials a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    line-height: 1.5;
+    font-size: 16px;
+    margin-bottom: 7px;
+    justify-content: flex-end;
+    align-items: center
+}
+
+.lumbra-skin footer .footer__content .footer__socials a:active,.lumbra-skin footer .footer__content .footer__socials a:focus,.lumbra-skin footer .footer__content .footer__socials a:hover {
+    text-decoration: underline
+}
+
+.lumbra-skin footer .footer__content .footer__socials a img {
+    width: 20px;
+    margin-top: 0;
+    margin-right: 10px
+}
+
+.lumbra-skin footer .footer__content .footer__contact .footer__tagline {
+    font-size: clamp(1em, 2vw + .25em, 2em);
+    text-align: center;
+    opacity: 1;
+    margin: 0 0 15px
+}
+
+@media (max-width: 768px) {
+    .lumbra-skin #showroom .showroom__options {
+        flex-direction:column;
+        gap: 30px;
+        align-items: center
+    }
+
+    .lumbra-skin #showroom .showroom__item {
+        width: clamp(200px,65vw,400px);
+        height: clamp(200px,65vw,400px)
+    }
+
+    .lumbra-skin footer .footer__content {
+        align-items: flex-end;
+        justify-content: end
+    }
+
+    .lumbra-skin footer .footer__content img.footer__logo {
+        position: absolute;
+        left: 0;
+        height: 100%;
+        opacity: .3
+    }
+}
+
+.lumbra-skin .btn {
+    font-size: clamp(1em, 3.5dvw, 1.75em);
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: .3s ease-in-out;
+    min-width: 200px;
+    position: relative;
+}
+
+.lumbra-skin .btn.btn-brown {
+    background: var(--lightbrown-color);
+    border: 3px solid var(--highlight-color);
+    color: var(--brown-color);
+    transition: all 0.3s ease;
+}
+
+.lumbra-skin .btn.btn-brown:active,.lumbra-skin .btn.btn-brown:focus,.lumbra-skin .btn.btn-brown:hover {
+    box-shadow: 0 0 10px rgba(255, 140, 66, 0.7);
+    transform: scale(1.03);
+    color: white;
+}
+
+.lumbra-skin .btn.btn-brown .icon {
+    width: auto;
+    height: 40px;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lumbra-skin .btn.btn-wpp {
+    background-color: var(--beige-color);
+    color: #fff;
+    padding-left: 50px;
+    font-weight: 400;
+    font-variant-caps: normal;
+    padding: 15px 20px 15px 58px;
+}
+
+.lumbra-skin .btn.btn-wpp:active,.lumbra-skin .btn.btn-wpp:focus,.lumbra-skin .btn.btn-wpp:hover {
+    background-color: var(--brown-color)
+}
+
+.lumbra-skin .btn.btn-wpp img {
+    width: 25px;
+    height: auto;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lumbra-skin :not([class*=animating]) {
+    animation-play-state: paused!important
+}
+
+.lumbra-skin .animation--fade-in-up {
+    animation: 1.2s ease-out forwards fadeInUp
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.lumbra-skin .animation--zoom-in {
+    animation: .8s ease-out forwards zoomIn
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(.9)
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1)
+    }
+}
+
+.lumbra-skin .animation--shine {
+    position: relative;
+    overflow: hidden
+}
+
+.lumbra-skin .animation--shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,rgba(255,255,255,0) 0,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 100%);
+    animation: 3s ease-out shineMove
+}
+
+@keyframes shineMove {
+    to {
+        left: 125%
+    }
+}
