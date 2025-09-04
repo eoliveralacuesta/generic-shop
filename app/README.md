@@ -1,6 +1,18 @@
-# 🧩 Frontend Flutter — Generic Shop
+# 🛍️ Proyecto Go + Flutter
+
+Demo de página con carrito enviado vía WhatsApp.
+
+Frontend: `Flutter`
+## ✅ Estado actual
 
 Frontend web en **Flutter** para listar productos con **búsqueda + filtros + paginación**.
+
+- Página home de relleno
+- Página de productos
+  - **Filtros**: texto, categoría, incluir sin stock  
+  - **URL sync** con `go_router` (q, category, oos, page)  
+  - **Paginación**: “Anterior/Siguiente” con total del backend
+- Página de catálogo para descargar PDF
 
 ## ⚡️ Quick start
 
@@ -9,15 +21,6 @@ Frontend web en **Flutter** para listar productos con **búsqueda + filtros + pa
 `flutter pub get`
 
 `flutter run -d web-server --web-port 8081`
-
-## 🧠 Qué hace
-
-- Página home de relleno
-- Página de productos
-  - **Filtros**: texto, categoría, incluir sin stock  
-  - **URL sync** con `go_router` (q, category, oos, page)  
-  - **Paginación**: “Anterior/Siguiente” con total del backend
-- Página de catálogo para descargar PDF
 
 ## 🗂️ Estructura
 
