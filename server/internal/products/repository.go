@@ -13,6 +13,7 @@ type Repository interface {
 	Find(q Query) ([]Product, error)
 	FindByID(id int) (Product, error)
 	FindBySKU(sku string) (Product, error)
+	ListCategories() ([]Category, error)
 }
 
 // Esta es la implementación concreta (usa SQLite)
@@ -73,40 +74,35 @@ func buildFilterParts(q Query) (from, where string, args []any) {
 	return
 }
 
-// List devuelve hasta 5 productos con stock > 0
-// Para testing
-// func (r *DBRepository) List(q Query) ([]Product, error) {
-// 	rows, err := r.db.Query(`
-// 		SELECT sku, title, price, currency, stock, rating
-// 		FROM product
-// 		WHERE stock > 0
-// 		ORDER BY id
-// 		LIMIT ? OFFSET ?`, q.Limit, q.Offset)
+func (r *DBRepository) ListCategories() ([]Category, error) {
+	rows, err := r.db.Query(`
+		SELECT id, name, slug, IFNULL(parent_id, 0) AS parent_id
+		FROM category ORDER BY parent_id, name`)
 
-// 	if err != nil { //Significa que no se abrió el cursor, por lo que no es necesario cerrarlo
-// 		return nil, fmt.Errorf("consulta de productos: %w", err)
-// 	}
+	if err != nil { //Significa que no se abrió el cursor, por lo que no es necesario cerrarlo
+		return nil, fmt.Errorf("consulta de categorías: %w", err)
+	}
 
-// 	//Acá se marca el cursor para un cierre diferido al salir de la función, sigue abierto mientras itero las rows
-// 	defer rows.Close()
+	//Acá se marca el cursor para un cierre diferido al salir de la función, sigue abierto mientras itero las rows
+	defer rows.Close()
 
-// 	//Acá se itera utilizando los datos ya obtenidos, con el cursor aún abierto; aunque ya se marcó para cerrar antes así que me despreocupo de eso
-// 	out := make([]Product, 0, 5)
-// 	for rows.Next() {
-// 		var p Product
-// 		if err := rows.Scan(&p.SKU, &p.Title, &p.Price, &p.Currency, &p.Stock, &p.Rating); err != nil {
-// 			return nil, fmt.Errorf("scan row producto: %w", err)
-// 		}
-// 		out = append(out, p)
-// 	}
+	result := []Category{}
+	//Acá se itera utilizando los datos ya obtenidos, con el cursor aún abierto; aunque ya se marcó para cerrar antes así que me despreocupo de eso
+	for rows.Next() {
+		var c Category
+		if err := rows.Scan(&c.ID, &c.Name, &c.Slug, &c.Parent); err != nil {
+			return nil, fmt.Errorf("scan row categoría: %w", err)
+		}
+		result = append(result, c)
+	}
 
-// 	//Si hay errores en las filas, se devuelve eso y no el resultado de productos
-// 	if err := rows.Err(); err != nil {
-// 		return nil, fmt.Errorf("iteración productos: %w", err)
-// 	}
+	//Si hay errores en las filas, se devuelve eso y no el resultado de productos
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("iteración categorías: %w", err)
+	}
 
-// 	return out, nil
-// }
+	return result, nil
+}
 
 // Count devuelve la cantidad total de productos con los filtros aplicados
 func (r *DBRepository) Count(q Query) (int, error) {
@@ -128,12 +124,12 @@ func (r *DBRepository) Count(q Query) (int, error) {
 func (r *DBRepository) Find(q Query) ([]Product, error) {
 	from, where, args := buildFilterParts(q)
 	sb := strings.Builder{}
-	sb.WriteString(`SELECT p.sku, p.title, p.price, p.currency, p.stock, p.rating FROM `)
+	sb.WriteString(`SELECT p.sku, p.title, p.price, p.currency, p.stock, p.rating, p.img FROM `)
 	sb.WriteString(from)
 	if where != "" {
 		sb.WriteString(" WHERE " + where + " ")
 	}
-	sb.WriteString("ORDER BY p.id LIMIT ? OFFSET ?")
+	sb.WriteString(" ORDER BY p.id LIMIT ? OFFSET ?")
 	args = append(args, q.Limit, q.Offset)
 
 	// Realizo consulta
@@ -148,7 +144,7 @@ func (r *DBRepository) Find(q Query) ([]Product, error) {
 	out := make([]Product, 0, q.Limit)
 	for rows.Next() {
 		var p Product
-		if err := rows.Scan(&p.SKU, &p.Title, &p.Price, &p.Currency, &p.Stock, &p.Rating); err != nil {
+		if err := rows.Scan(&p.SKU, &p.Title, &p.Price, &p.Currency, &p.Stock, &p.Rating, &p.Image); err != nil {
 			return nil, fmt.Errorf("scan row producto: %w", err)
 		}
 		out = append(out, p)
@@ -169,11 +165,11 @@ func (r *DBRepository) FindByID(id int) (Product, error) {
 	}
 
 	row := r.db.QueryRow(`
-        SELECT sku, title, price, currency, stock, rating
+        SELECT sku, title, price, currency, stock, rating, img
         FROM product WHERE id = ?`, id)
 
 	var p Product
-	if err := row.Scan(&p.SKU, &p.Title, &p.Price, &p.Currency, &p.Stock, &p.Rating); err != nil {
+	if err := row.Scan(&p.SKU, &p.Title, &p.Price, &p.Currency, &p.Stock, &p.Rating, &p.Image); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return Product{}, ErrNotFound
 		}
@@ -189,11 +185,11 @@ func (r *DBRepository) FindBySKU(sku string) (Product, error) {
 	}
 
 	row := r.db.QueryRow(`
-        SELECT sku, title, price, currency, stock, rating
+        SELECT sku, title, price, currency, stock, rating, img
         FROM product WHERE UPPER(sku) = UPPER(?)`, sku)
 
 	var p Product
-	if err := row.Scan(&p.SKU, &p.Title, &p.Price, &p.Currency, &p.Stock, &p.Rating); err != nil {
+	if err := row.Scan(&p.SKU, &p.Title, &p.Price, &p.Currency, &p.Stock, &p.Rating, &p.Image); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return Product{}, ErrNotFound
 		}

@@ -10,6 +10,18 @@ import (
 )
 
 func Mount(mux *http.ServeMux, svc *Service) {
+	// OBTENCIÓN DE CATEGORÍAS PARA FILTRADO
+	mux.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
+		cats, err := svc.ListCategories()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		_ = json.NewEncoder(w).Encode(cats)
+	})
+
 	// OBTENCIÓN DE PRODUCTOS
 	mux.HandleFunc("GET /products", func(w http.ResponseWriter, r *http.Request) {
 		// Si viene un SKU en los parámetros, lo redirigimos al request correcto

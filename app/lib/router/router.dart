@@ -1,8 +1,7 @@
 import 'package:app/body/layout.dart';
-import 'package:app/body/modules/contact.dart';
 import 'package:app/body/modules/home.dart';
-import 'package:app/body/modules/products.dart';
-import 'package:app/body/modules/showroom.dart';
+import 'package:app/body/modules/products/products_page.dart';
+import 'package:app/body/modules/catalog.dart';
 import 'package:app/router/router_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -21,16 +20,15 @@ final router = GoRouter(
         ),
         GoRoute(
           path: '/productos',
-          builder: (context, state) => const ProductsPage(),
+          builder: (context, state) {
+            final queryParams = state.uri.queryParameters;
+            return ProductsPage(params: queryParams);
+          },
         ),
         GoRoute(
-          path: '/showroom',
-          builder: (context, state) => const ShowroomPage(),
+          path: '/catalogo',
+          builder: (context, state) => const CatalogPage(),
         ),
-        GoRoute(
-          path: '/contact',
-          builder: (context, state) => const ContactPage(),
-        )
       ]
      ),
   ]

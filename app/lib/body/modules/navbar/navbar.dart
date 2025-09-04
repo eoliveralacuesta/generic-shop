@@ -11,9 +11,9 @@ class Navbar extends StatelessWidget {
   Widget build(BuildContext context) {
 
   final children = [
-                NavItem(label: 'NOSOTROS', path: '/nosotros',),
+                NavItem(label: 'INICIO', path: '/',),
                 NavItem(label: 'PRODUCTOS', path: '/productos'),
-                NavItem(label: 'SHOWROOM', path: '/showroom'),
+                NavItem(label: 'CATÁLOGO', path: '/catalogo'),
                 NavItem(label: 'ESCRIBINOS', path: '/escribinos'),
               ];
   

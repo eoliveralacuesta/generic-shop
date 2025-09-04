@@ -8,17 +8,16 @@ func NewService(r Repository) *Service {
 	return &Service{repo: r}
 }
 
-// Para testing
-// func (s *Service) List(q Query) ([]Product, error) {
-// 	return s.repo.List(q.Normalized())
-// }
-
 type Result struct {
 	Items  []Product `json:"items"`
 	Total  int       `json:"total"`
 	Count  int       `json:"count"`
 	Limit  int       `json:"limit"`
 	Offset int       `json:"offset"`
+}
+
+func (s *Service) ListCategories() ([]Category, error) {
+	return s.repo.ListCategories()
 }
 
 func (s *Service) Find(q Query) (Result, error) {

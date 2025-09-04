@@ -51,26 +51,35 @@ class _LayoutState extends State<Layout> {
           ),
         ),
         child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            // Navbar
-            SliverToBoxAdapter(
-              child: Navbar(isScrolled: _isScrolled),
-            ),
+  controller: _scrollController,
+  slivers: [
+    // Navbar
+    SliverToBoxAdapter(
+      child: Navbar(isScrolled: _isScrolled),
+    ), //Va siempre arriba, y tiene el controlador para saber si scrolleó o no
 
-            // Contenido + Footer
-            SliverFillRemaining(
-              hasScrollBody: true,
-              fillOverscroll: true,
-              child: Column(
-                children: [
-                  Expanded(child: widget.child),
-                  const Footer(),
-                ],
-              ),
+    // Contenido + Footer
+    SliverFillRemaining(
+      hasScrollBody: false,
+      child: Column(
+        children: [
+          // Contenido que se adapta
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
             ),
-          ],
-        ),
+            child: widget.child,
+          ),
+        ],
+      ),
+
+    ),
+
+    SliverToBoxAdapter(
+        child: const Footer(),
+    ), //Funciona igual que el header, tiene que ir siempre al final, no importa el contenido del medio
+  ],
+),
       ),
     );
   }

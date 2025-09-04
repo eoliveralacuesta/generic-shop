@@ -7,4 +7,12 @@ type Product struct {
 	Currency string  `json:"currency"`
 	Stock    int     `json:"stock"`
 	Rating   float64 `json:"rating"`
+	Image    string  `json:"img"`
+}
+
+type Category struct {
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	Slug   string `json:"slug"`
+	Parent int    `json:"parent_id"`
 }
